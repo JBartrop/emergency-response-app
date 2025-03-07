@@ -33,9 +33,9 @@ const Login: React.FC = () => {
         // console.log(name, value)
     }
 
-    const handleSave = () => {
+    const handleSave = async (): Promise<void> => {
         isSubmitting(true);
-        new Promise(res=> setTimeout(res, Math.random() * 1000))
+        await new Promise <void> ((res) => setTimeout(res, Math.random() * 2000));
         console.log("Login Data:", inputdata);
         toast.success("login successfully!");
         localStorage.setItem("emergencyResponseProfile", JSON.stringify([inputdata]) )
@@ -43,13 +43,14 @@ const Login: React.FC = () => {
             email: "",
             password: ""
         })
+        isSubmitting(false);
     };
 
     return (
         <div className="bg-amber-50 rounded-lg p-8     w-10/12   sm:w-1/2   lg:w-2/5  ">
             
             <form method="POST" action="/">
-            <h1 className="text-center uppercase font-bold text-2xl text-black ">login</h1>
+            <h1 className="text-center uppercase font-bold text-2xl text-black mb-4 ">login</h1>
 
             <label className="text-gray-800">Email</label>
             <div className="relative">
