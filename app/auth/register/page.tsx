@@ -6,6 +6,7 @@ import Link from "next/link";
 import { HiEyeSlash } from "react-icons/hi2";
 import { FaEye, FaKey, FaMailchimp, FaNoteSticky, FaPhone, FaUser } from "react-icons/fa6";
 import { MdEmail } from "react-icons/md";
+import { useRouter } from "next/navigation";
 
 
 
@@ -14,6 +15,8 @@ export async function RegisterAction() {
     await new Promise(res=> setTimeout(res, Math.random() * 1000)) ;
 }
 const Register: React.FC = () => {
+
+    const router = useRouter();
 
 
     const [showPassword, setShowPassword] = useState<boolean>(false)
@@ -53,6 +56,7 @@ const Register: React.FC = () => {
             telephoneNumber: "",
         })
         isSubmitting(false);
+        router.push("/auth/otp")
     };
 
     return (
@@ -90,7 +94,7 @@ const Register: React.FC = () => {
                 <button className="absolute inset-y-0 left-0 flex items-center pl-6 text-sm text-gray-600">
                     <FaPhone />
                 </button>
-                <Input type="text" name="telephoneNumber" placeholder="enter email" value={inputdata.telephoneNumber} onChange={handleChange} />
+                <Input type="text" name="telephoneNumber" placeholder="enter telephone number" value={inputdata.telephoneNumber} onChange={handleChange} />
             </div>
 
             <label className="text-gray-800">Email</label>

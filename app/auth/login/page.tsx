@@ -5,6 +5,7 @@ import Input from "../../components/input";
 import Link from "next/link";
 import { HiEyeSlash } from "react-icons/hi2";
 import { FaEye, FaKey, FaUser } from "react-icons/fa6";
+import { useRouter } from "next/navigation";
 
 
 
@@ -13,6 +14,8 @@ export async function LoginAction() {
     await new Promise(res=> setTimeout(res, Math.random() * 1000)) ;
 }
 const Login: React.FC = () => {
+
+    const router = useRouter();
 
 
     const [showPassword, setShowPassword] = useState<boolean>(false)
@@ -44,6 +47,7 @@ const Login: React.FC = () => {
             password: ""
         })
         isSubmitting(false);
+        router.push("/auth/otp")
     };
 
     return (

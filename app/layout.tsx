@@ -26,7 +26,6 @@ export default function RootLayout({
       <body
         className={`${RalewaySans.className} ${robotoMono.className} antialiased`}
       >
-        <nav>navvvvv</nav>
         {children}
       </body>
     </html>
