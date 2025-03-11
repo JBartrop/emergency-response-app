@@ -66,7 +66,20 @@ body {
 
 .Home{
   color:black;
-  background-image: -webkit-linear-gradient(225deg, #f7f7f7 50%, #fcc5be 50%);
+  background-image: #f7f7f7;
+  background: #f7f7f7;
+}
+
+.Personnel{
+  color:black;
+  background-image: #f7f7f7;
+  background: #f7f7f7;
+}
+
+.Incidents{
+  color:black;
+  background-image: #f7f7f7;
+  background: #f7f7f7;
 }
 
 :root {
