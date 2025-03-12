@@ -1,19 +1,15 @@
 'use client';
-import React, { useState } from "react";
-import { toast } from "react-toastify";
+import React, { useState }  from "react";
 import Input from "../../components/input";
-import Link from "next/link";
+import { toast } from "react-toastify";
+// import Link from "next/link";
 import { HiEyeSlash } from "react-icons/hi2";
 import { FaEye, FaKey, FaUser } from "react-icons/fa6";
 import { useRouter } from "next/navigation";
 
 
 
-
-export async function LoginAction() {
-    await new Promise(res=> setTimeout(res, Math.random() * 1000)) ;
-}
-const Login: React.FC = () => {
+const ForgotPassword : React.FC = () => {
 
     const router = useRouter();
 
@@ -24,7 +20,8 @@ const Login: React.FC = () => {
 
     const [inputdata, setinputdata] = useState({
         email : "",
-        password : ""
+        password : "",
+        confirmpassword : "",
     })
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -33,7 +30,6 @@ const Login: React.FC = () => {
             ...prevdata,
             [name]: value
         }))
-        // console.log(name, value)
     }
 
     const handleSave = async (): Promise<void> => {
@@ -44,17 +40,17 @@ const Login: React.FC = () => {
         localStorage.setItem("emergencyResponseProfile", JSON.stringify([inputdata]) )
         setinputdata ({
             email: "",
-            password: ""
+            password: "",
+            confirmpassword : "",
         })
         isSubmitting(false);
         router.push("/auth/otp")
     };
 
-    return (
+    return(
         <div className="bg-amber-50 rounded-lg p-8     w-10/12   sm:w-1/2   lg:w-2/5  ">
-            
             <form method="POST" action="/">
-            <h1 className="text-center uppercase font-bold text-2xl text-black mb-4 ">login</h1>
+            <h1 className="text-center uppercase font-bold text-2xl text-black mb-4 ">forgot password</h1>
 
             <label className="text-gray-800">Email</label>
             <div className="relative">
@@ -63,15 +59,15 @@ const Login: React.FC = () => {
                 </button>
                 <Input type="email" name="email" placeholder="enter email" value={inputdata.email} onChange={handleChange} />
             </div>
-            
 
-            <label className="text-gray-800">Password</label>
+
+            <label className="text-gray-800">New Password</label>
             <div className="relative">
                 <button className="absolute inset-y-0 left-0 flex items-center pl-6 text-sm text-gray-600">
                   <FaKey  />
                 </button>
                 
-                <Input type={showPassword ? "text" : "password"} name="password" placeholder="enter password" value={inputdata.password} onChange={handleChange} />
+                <Input type={showPassword ? "text" : "password"} name="new password" placeholder="enter new password" value={inputdata.password} onChange={handleChange} />
                 
                 <button type="button" onClick={() => setShowPassword(prev => !prev)} className="absolute inset-y-0 right-0 flex items-center pr-6 text-sm text-gray-600" aria-label={showPassword ? 'Hide password' : 'Show password'}>
                 {showPassword ? < HiEyeSlash /> : <FaEye /> }
@@ -79,7 +75,19 @@ const Login: React.FC = () => {
             </div>
 
 
-            <Link href="/auth/forgot-password" className="text-red-600">Forgot password?</Link>
+            <label className="text-gray-800">Confirm New Password</label>
+            <div className="relative">
+                <button className="absolute inset-y-0 left-0 flex items-center pl-6 text-sm text-gray-600">
+                  <FaKey  />
+                </button>
+                
+                <Input type={showPassword ? "text" : "password"} name="confirm new password" placeholder="confirm new password" value={inputdata.confirmpassword} onChange={handleChange} />
+                
+                <button type="button" onClick={() => setShowPassword(prev => !prev)} className="absolute inset-y-0 right-0 flex items-center pr-6 text-sm text-gray-600" aria-label={showPassword ? 'Hide password' : 'Show password'}>
+                {showPassword ? < HiEyeSlash /> : <FaEye /> }
+                </button>
+            </div>
+            <label className="text-gray-800 text-sm mt-1">passwords match??</label>
             <button
                 type="button"
                 onClick={handleSave}
@@ -88,11 +96,9 @@ const Login: React.FC = () => {
             >
                 {submitting ? "Logging in" : "Login"}
             </button>
-            <p className="text-gray-800">Don't have an account? <Link href="/auth/register" className="text-red-600">Register</Link> </p>
             </form>
-            
         </div>
     )
 }
 
-export default Login;
+export default ForgotPassword;
