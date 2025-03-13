@@ -1,7 +1,7 @@
 'use client';
 import React, { useEffect } from "react";
 import { Table,  TableBody,  TableCaption,   TableCell,   TableFooter,   TableHead,   TableHeader,   TableRow } from "../../components/ui/table"
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 interface TableProps{
     serviceNumber: string;
@@ -75,6 +75,17 @@ const invoices: TableProps[]  = [
   ]
 
 const Personnel: React.FC = () => {
+
+    const router = useRouter();
+
+    useEffect(() => {
+      const token = localStorage.getItem("emergencyResponseProfile"); 
+      if (!token) {
+        router.push("/auth/login"); 
+      }
+    }, []);
+
+
     return (
         <section className=" ml-50 p-16 min-h-screen w-screen">
             <Table className="w-10/12 m-auto">

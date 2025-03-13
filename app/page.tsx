@@ -3,7 +3,7 @@
 'use client';
 import React, { useEffect }  from "react";
 import Sidebar from "./components/sidebar";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
 
@@ -16,9 +16,9 @@ export default function Home() {
     }
   }, []);
 
-  if (typeof window !== "undefined" && !localStorage.getItem("emergencyResponseProfile")) {
-    return null;
-  }
+  // if (typeof window !== "undefined" && !localStorage.getItem("emergencyResponseProfile")) {
+  //   return null;
+  // }
 
   return (
     <>
