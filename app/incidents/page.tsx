@@ -85,7 +85,7 @@ const Incidents: React.FC = () => {
                 <TableHeader>
                   <TableRow>
                     {tableHead.map((heads) => (
-                        <TableHead className="first:w-[200px] last:text-right ">{heads.title}</TableHead>
+                        <TableHead className="first:w-[200px] last:text-right " key={heads.id}>{heads.title}</TableHead>
                     ))}
                   </TableRow>
                 </TableHeader>

@@ -1,5 +1,7 @@
-import React from "react";
+'use client';
+import React, { useEffect } from "react";
 import { Table,  TableBody,  TableCaption,   TableCell,   TableFooter,   TableHead,   TableHeader,   TableRow } from "../../components/ui/table"
+import { useRouter } from "next/router";
 
 interface TableProps{
     serviceNumber: string;
@@ -80,7 +82,7 @@ const Personnel: React.FC = () => {
                 <TableHeader>
                   <TableRow>
                     {tableHead.map((heads) => (
-                        <TableHead className="first:w-[200px] last:text-right ">{heads.title}</TableHead>
+                        <TableHead className="first:w-[200px] last:text-right " key={heads.id}>{heads.title}</TableHead>
                     ))}
                   </TableRow>
                 </TableHeader>

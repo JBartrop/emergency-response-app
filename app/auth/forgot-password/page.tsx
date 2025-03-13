@@ -16,6 +16,7 @@ const ForgotPassword : React.FC = () => {
 
     const [showPassword, setShowPassword] = useState<boolean>(false)
     const [submitting, isSubmitting] = useState<boolean>(false)
+    const [error, setError] = useState<string | null>("")
 
 
     const [inputdata, setinputdata] = useState({
@@ -33,19 +34,32 @@ const ForgotPassword : React.FC = () => {
     }
 
     const handleSave = async (): Promise<void> => {
-        isSubmitting(true);
-        await new Promise <void> ((res) => setTimeout(res, Math.random() * 2000));
-        console.log("Login Data:", inputdata);
-        toast.success("login successfully!");
-        localStorage.setItem("emergencyResponseProfile", JSON.stringify([inputdata]) )
-        setinputdata ({
-            email: "",
-            password: "",
-            confirmpassword : "",
-        })
-        isSubmitting(false);
-        router.push("/auth/otp")
+        if(inputdata.password !== inputdata.confirmpassword){
+            setError("passowrds ndo not match")
+            toast.error("passwords do not match")
+            return;
+        }
+        else{
+            isSubmitting(true);
+            await new Promise <void> ((res) => setTimeout(res, Math.random() * 2000));
+            console.log("Login Data:", inputdata);
+            toast.success("data saved!");
+            setinputdata ({
+                email: "",
+                password: "",
+                confirmpassword : "",
+            })
+            isSubmitting(false);
+            router.push("/auth/otp")
+        }    
     };
+
+
+    const isFormComplete =
+    inputdata.email.trim() !== "" &&
+    inputdata.password.trim() !== "" &&
+    inputdata.confirmpassword.trim() !== "" 
+    // inputdata.password === inputdata.confirmpassword;
 
     return(
         <div className="bg-amber-50 rounded-lg p-8     w-10/12   sm:w-1/2   lg:w-2/5  ">
@@ -67,7 +81,7 @@ const ForgotPassword : React.FC = () => {
                   <FaKey  />
                 </button>
                 
-                <Input type={showPassword ? "text" : "password"} name="new password" placeholder="enter new password" value={inputdata.password} onChange={handleChange} />
+                <Input type={showPassword ? "text" : "password"} name="password" placeholder="enter new password" value={inputdata.password} onChange={handleChange} />
                 
                 <button type="button" onClick={() => setShowPassword(prev => !prev)} className="absolute inset-y-0 right-0 flex items-center pr-6 text-sm text-gray-600" aria-label={showPassword ? 'Hide password' : 'Show password'}>
                 {showPassword ? < HiEyeSlash /> : <FaEye /> }
@@ -81,18 +95,19 @@ const ForgotPassword : React.FC = () => {
                   <FaKey  />
                 </button>
                 
-                <Input type={showPassword ? "text" : "password"} name="confirm new password" placeholder="confirm new password" value={inputdata.confirmpassword} onChange={handleChange} />
+                <Input type={showPassword ? "text" : "password"} name="confirmpassword" placeholder="confirm new password" value={inputdata.confirmpassword} onChange={handleChange} />
                 
                 <button type="button" onClick={() => setShowPassword(prev => !prev)} className="absolute inset-y-0 right-0 flex items-center pr-6 text-sm text-gray-600" aria-label={showPassword ? 'Hide password' : 'Show password'}>
                 {showPassword ? < HiEyeSlash /> : <FaEye /> }
                 </button>
             </div>
-            <label className="text-gray-800 text-sm mt-1">passwords match??</label>
+            {/* {error &&  } */}
+            <p className="text-red-600 text-sm mt-1">{error}</p>
             <button
                 type="button"
                 onClick={handleSave}
-                className="bg-red-300 text-black my-4 px-4 py-3 rounded-full hover:bg-red-400 active:bg-red-500 cursor-pointer duration-300 w-full "
-                disabled={submitting}
+                className="bg-red-400 text-black my-4 px-4 py-3 rounded-full hover:bg-red-500 active:bg-red-400 cursor-pointer duration-300 w-full disabled:cursor-not-allowed  disabled:bg-red-300"
+                disabled={!isFormComplete || submitting}
             >
                 {submitting ? "Logging in" : "Login"}
             </button>
