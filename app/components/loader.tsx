@@ -20,7 +20,7 @@ const Loader : React.FC = () => {
             {Loading ? 
                ( <div className="Loader overflow-hidden flex z-100  h-screen w-full fixed items-center justify-center text-center min-h-screen sm:p-20 font-[family-name:var(--font-geist-sans)]">
                     <div>
-                        {/* <h1 className="text-4xl font-bold">Welcome to Emergency App</h1> */}
+                        <h1 className="text-4xl font-bold">Welcome to Emergency App</h1>
                         <div className="spin flex h-32 items-center justify-center ">
                             <div className="spinner h-28 w-28 rounded-full z-10 animate-spin"></div>
                         </div>
