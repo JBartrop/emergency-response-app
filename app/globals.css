@@ -64,6 +64,16 @@ body {
   color:black;
 }
 
+.Loader{
+  background-image: -webkit-linear-gradient(225deg, #f7f7f7 50%, #fcc5be 50%);
+  color:black;
+}
+
+.spinner{
+  border-top:8px solid rgb(245, 126, 126);
+  border-bottom:8px solid rgb(245, 126, 126);
+}
+
 .Home{
   color:black;
   background-image: #f7f7f7;

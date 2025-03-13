@@ -43,21 +43,37 @@ const Register: React.FC = () => {
 
     const handleSave = async (): Promise<void> => {
         isSubmitting(true);
-        await new Promise <void> ((res) => setTimeout(res, Math.random() * 2000));
-        console.log("Register Data:", inputdata);
-        toast.success("created profile successfully!");
-        localStorage.setItem("emergencyResponseProfile", JSON.stringify([inputdata]) )
-        setinputdata ({
-            firstName : "",
-            lastName : "",
-            email: "",
-            password: "",
-            serviceNumber: "",
-            telephoneNumber: "",
-        })
-        isSubmitting(false);
-        router.push("/auth/otp")
+        try{
+            await new Promise <void> ((res) => setTimeout(res, Math.random() * 2000));
+            console.log("Register Data:", inputdata);
+            toast.success("created profile successfully!");
+            localStorage.setItem("emergencyResponseProfile", JSON.stringify([inputdata.email, inputdata.password]) )
+            router.push("/auth/otp")
+        }catch(error){
+            console.log(error)
+        }finally{
+            setinputdata ({
+                firstName : "",
+                lastName : "",
+                email: "",
+                password: "",
+                serviceNumber: "",
+                telephoneNumber: "",
+            })
+            isSubmitting(false);
+        }
+
+
     };
+
+
+    const isFormComplete =
+    inputdata.email.trim() !== "" &&
+    inputdata.password.trim() !== "" &&
+    inputdata.firstName.trim() !== "" &&
+    inputdata.lastName.trim() !== "" &&
+    inputdata.telephoneNumber.trim() !== "" &&
+    inputdata.serviceNumber.trim() !== "" 
 
     return (
         <div className="bg-amber-50 rounded-lg p-8     w-10/12   sm:w-1/2   lg:w-2/5  ">
@@ -121,8 +137,8 @@ const Register: React.FC = () => {
             <button
                 type="button"
                 onClick={handleSave}
-                className="bg-red-300 my-4 text-black px-4 py-3 rounded-full hover:bg-red-400 active:bg-red-500 cursor-pointer duration-300 w-full "
-                disabled={submitting}
+                className="bg-red-400 my-4 text-black px-4 py-3 rounded-full hover:bg-red-500 active:bg-red-400 cursor-pointer duration-300 w-full disabled:cursor-not-allowed disabled:bg-red-300 "
+                disabled={!isFormComplete || submitting}
             >
                 {submitting ? "Creating account" : "Create Account" }
             </button>

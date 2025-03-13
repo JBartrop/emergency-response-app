@@ -109,7 +109,7 @@ const ForgotPassword : React.FC = () => {
                 className="bg-red-400 text-black my-4 px-4 py-3 rounded-full hover:bg-red-500 active:bg-red-400 cursor-pointer duration-300 w-full disabled:cursor-not-allowed  disabled:bg-red-300"
                 disabled={!isFormComplete || submitting}
             >
-                {submitting ? "Logging in" : "Login"}
+                {submitting ? "Submitting" : "Submit"}
             </button>
             </form>
         </div>

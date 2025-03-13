@@ -36,19 +36,29 @@ const Login: React.FC = () => {
         // console.log(name, value)
     }
 
-    const handleSave = async (): Promise<void> => {
+    const handleSave = async (): Promise<void> => { 
         isSubmitting(true);
-        await new Promise <void> ((res) => setTimeout(res, Math.random() * 2000));
-        console.log("Login Data:", inputdata);
-        toast.success("login successfully!");
-        localStorage.setItem("emergencyResponseProfile", JSON.stringify([inputdata]) )
-        setinputdata ({
-            email: "",
-            password: ""
-        })
-        isSubmitting(false);
-        router.push("/auth/otp")
+        try{
+            await new Promise <void> ((res) => setTimeout(res, Math.random() * 2000));
+            console.log("Login Data:", inputdata);
+            toast.success("login successfully!");
+            localStorage.setItem("emergencyResponseProfile", JSON.stringify([inputdata]) )
+            router.push("/")
+        }catch(error){
+            console.log(error)
+        }finally{
+            setinputdata ({
+                email: "",
+                password: ""
+            })
+            isSubmitting(false);
+        }
+
     };
+
+    const isFormComplete =
+    inputdata.email.trim() !== "" &&
+    inputdata.password.trim() !== ""
 
     return (
         <div className="bg-amber-50 rounded-lg p-8     w-10/12   sm:w-1/2   lg:w-2/5  ">
@@ -83,8 +93,8 @@ const Login: React.FC = () => {
             <button
                 type="button"
                 onClick={handleSave}
-                className="bg-red-300 text-black my-4 px-4 py-3 rounded-full hover:bg-red-400 active:bg-red-500 cursor-pointer duration-300 w-full "
-                disabled={submitting}
+                className="bg-red-400 text-black my-4 px-4 py-3 rounded-full hover:bg-red-500 active:bg-red-400 cursor-pointer duration-300 w-full disabled:cursor-not-allowed disabled:bg-red-300 "
+                disabled={ !isFormComplete || submitting}
             >
                 {submitting ? "Logging in" : "Login"}
             </button>

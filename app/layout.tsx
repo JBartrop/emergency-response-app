@@ -3,6 +3,7 @@ import { Raleway, Raleway_Dots } from "next/font/google";
 import "./globals.css";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Loader from "./components/loader";
 
 const RalewaySans = Raleway({
   subsets: ["latin"],
@@ -28,6 +29,9 @@ export default function RootLayout({
       <body
         className={`${RalewaySans.className} ${robotoMono.className} antialiased`}
       >
+        <div className="prreloader">
+          <Loader />
+        </div>
         <ToastContainer position="top-right" autoClose={3000} />
         {children}
       </body>
