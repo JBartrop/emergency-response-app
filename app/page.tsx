@@ -4,6 +4,7 @@
 import React, { useEffect }  from "react";
 import Sidebar from "./components/sidebar";
 import { useRouter } from "next/navigation";
+import GoogleMapsComponent from "./components/googleMap";
 
 export default function Home() {
 
@@ -23,16 +24,16 @@ export default function Home() {
   return (
     <>
     <Sidebar />
-    <div className="Home grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 ">
-      <main className=" Maps h-10/12 w-10/12 m-auto">
-        maps here
+    <div className="Home  ml-50 grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-4 pb-20 gap-16 sm:p-20 m-auto ">
+      <main className=" Maps h-11/12 w-full m-auto">
+        <GoogleMapsComponent />
       </main>
-      <div className="flex flex-col gap-8 row-start-2 items-center ">
+      {/* <div className="flex flex-col gap-8 row-start-2 items-center ">
         <h1> Welcome to Emergency response </h1>
         <div className="flex flex-wrap  justify-center ">
           this is the fastest way
         </div>
-      </div>
+      </div> */}
     </div>
     </>
   );
