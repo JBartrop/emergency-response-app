@@ -24,8 +24,8 @@ export default function Home() {
   return (
     <>
     <Sidebar />
-    <div className="Home  ml-50 grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-4 pb-20 gap-16 sm:p-20 m-auto ">
-      <main className=" Maps h-11/12 w-full m-auto">
+    <div className="Home  ml-50 grid grid-rows-[10px_1fr_10px] items-center justify-items-center min-h-screen p-4  gap-8 sm:p-20 m-auto ">
+      <main className=" Maps h-full w-full m-auto">
         <GoogleMapsComponent />
       </main>
       {/* <div className="flex flex-col gap-8 row-start-2 items-center ">
