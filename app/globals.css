@@ -64,9 +64,45 @@ body {
   color:black;
 }
 
+.Loader{
+  background-image: -webkit-linear-gradient(225deg, #f7f7f7 50%, #fcc5be 50%);
+  color:black;
+}
+
+.spinner{
+  border-top:8px solid rgb(245, 126, 126);
+  border-bottom:8px solid rgb(245, 126, 126);
+}
+
+.bell-icon {
+  animation: bellShake 0.3s infinite alternate ease-in-out;
+}
+
+@keyframes bellShake {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(10deg);
+  }
+}
+
 .Home{
   color:black;
-  background-image: -webkit-linear-gradient(225deg, #f7f7f7 50%, #fcc5be 50%);
+  background-image: #f7f7f7;
+  background: #f7f7f7;
+}
+
+.Personnel{
+  color:black;
+  background-image: #f7f7f7;
+  background: #f7f7f7;
+}
+
+.Incidents{
+  color:black;
+  background-image: #f7f7f7;
+  background: #f7f7f7;
 }
 
 :root {

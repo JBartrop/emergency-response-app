@@ -1,8 +1,26 @@
 // import Image from "next/image";
 // import Link from "next/link";
+'use client';
+import React, { useEffect } from "react";
 import Sidebar from "./components/sidebar";
+import { useRouter } from "next/navigation";
+import GoogleMapsComponent from "./components/googleMap";
 
 export default function Home() {
+
+  const router = useRouter();
+
+  useEffect(() => {
+    const token = localStorage.getItem("emergencyResponseProfile");
+    if (!token) {
+      router.push("/auth/login");
+    }
+  }, []);
+
+  // if (typeof window !== "undefined" && !localStorage.getItem("emergencyResponseProfile")) {
+  //   return null;
+  // }
+
   return (
     <>
       <Sidebar />

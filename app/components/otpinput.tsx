@@ -1,6 +1,7 @@
 'use client';
 import React, { useRef, useState } from "react";
 import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
 // import Link from "next/link";
 
 interface OtpInputProps {
@@ -10,25 +11,28 @@ interface OtpInputProps {
 
 const Otpinput: React.FC <OtpInputProps> = ({length}) => {
 
+    const router = useRouter();
+
     const [otp, setOtp] = useState<string[]>(new Array(length).fill(""));
     const [disabledbutton, setdisabledbutton] = useState<boolean>(false)
 
     // const inputRefs = useRef<HTMLInputElement[]>([]);
-    const inputRefs = useRef<(HTMLInputElement | null)[]>(new Array(length).fill(null));
+    const inputRefs = useRef<(HTMLInputElement | null )[]>(new Array(length).fill(null));
 
 
     const handleChange = (index: number, value: string) => {
+        if (!/^\d?$/.test(value)) return;
         const newOtp = [...otp];
         newOtp[index] = value.slice(-1); 
         setOtp(newOtp);
 
         if (value && index < length - 1) {
-            inputRefs.current[index + 1]?.focus(); // Move to next input
+            inputRefs.current[index + 1]?.focus(); 
         }
     };
 
     const handleKeyDown = (index: number, e: React.KeyboardEvent<HTMLInputElement>) => {
-        if(e.key === "Backspace" [index] && index > 0){
+        if(e.key === "Backspace" && !otp[index] && index > 0){
             inputRefs.current[index - 1]?.focus();
         }
     }
@@ -40,11 +44,11 @@ const Otpinput: React.FC <OtpInputProps> = ({length}) => {
         setdisabledbutton(true)
         try{
             await new Promise <void> ((res) => setTimeout(res, Math.random() * 3000));
-            console.log("otp was:", otp);
-            //stringify the otp >>>>>>>>>>>>
-            JSON.stringify(otp)
+            const newOtp = [...otp];
+            const stringOtp = newOtp.join(""); 
+            console.log("otp is:", stringOtp);
             toast.success("otp entered successfully!");
-            // localStorage.setItem("emergencyResponseProfile", JSON.stringify([inputdata]) )
+            router.push("/auth/login")
         }catch(error){
             console.log(error)
         }finally{
@@ -52,6 +56,11 @@ const Otpinput: React.FC <OtpInputProps> = ({length}) => {
         }
         
     }
+
+
+    const isFormComplete = otp.join("").length === length;
+
+    
 
 
     return (
@@ -66,7 +75,7 @@ const Otpinput: React.FC <OtpInputProps> = ({length}) => {
                                 onChange={(e) => handleChange(index, e.target.value)}
                                 onKeyDown={(e) => handleKeyDown(index, e)}
                                 inputMode="numeric"
-                                // ref={(el) => (inputRefs.current[index] = el)}
+                                ref={(el) => (inputRefs.current[index] = el)}
                                 pattern="[0-9]*"
                                 className="w-12 h-12 text-center border border-gray-300 rounded-md text-xl focus:border-blue-500 outline-none"
                              />
@@ -76,10 +85,10 @@ const Otpinput: React.FC <OtpInputProps> = ({length}) => {
             <button
                 type="button"
                 onClick={handleSave}
-                disabled={disabledbutton}
-                className="bg-red-300 my-8  text-black px-4 py-3 rounded-full hover:bg-red-400 active:bg-red-500 cursor-pointer duration-300 w-full disabled:cursor-not-allowed "
+                disabled={!isFormComplete || disabledbutton}
+                className="bg-red-400 my-8  text-black px-4 py-3 rounded-full hover:bg-red-500 active:bg-red-400 cursor-pointer duration-300 w-full disabled:cursor-not-allowed disabled:bg-red-300 "
             >
-                {disabledbutton ? "Signing In..." : "Enter"}
+                {disabledbutton ? "Loading..." : "Enter"}
             </button>
             <div className="flex-shrink w-full text-center">
                 <p className="text-black text-sm mt-1">
@@ -97,3 +106,5 @@ const Otpinput: React.FC <OtpInputProps> = ({length}) => {
 }
 
 export  default Otpinput;
+
+

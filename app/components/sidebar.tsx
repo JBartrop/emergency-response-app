@@ -1,5 +1,6 @@
 'use client';
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import React, { ReactNode, useState } from "react";
 import { BiLogOut } from "react-icons/bi";
 import { FaHome, FaUser } from "react-icons/fa";
@@ -42,11 +43,15 @@ const Sidebar: React.FC = () => {
     const handleClick = (event: React.MouseEvent<HTMLLIElement>, index: number) => {
         event.preventDefault();
         setActiveIndex(index)
-        console.log("i was clicked")
+    }
+
+    const logOutAction = () => {
+        localStorage.removeItem("emergencyResponseProfile");
+        redirect("/auth/login");
     }
 
     return(
-        <nav className="top-0 left-0 h-full absolute w-64 bg-white text-black p-4 shadow-xl shadow-gray-400 ">
+        <nav className="top-0 left-0 h-screen fixed  w-64 bg-white text-black p-4 shadow-xl shadow-gray-400 ">
             <h2 className="mb-8 uppercase mt-4">Emergency response </h2>
             <ul>
                 {menuitems.map((item,index) => (
@@ -60,7 +65,12 @@ const Sidebar: React.FC = () => {
 
             </ul>
             <div className="absolute bottom-5 right-5 flex ">
-                <Link href="#" title="logout" ><BiLogOut size={26} /></Link>
+                <button title="logout" ><BiLogOut size={26} onClick={  (e) =>{ 
+                    if(!window.confirm("do you want to logout?")){
+                        e.preventDefault();
+                    }
+                    else{logOutAction()}}   } 
+                /></button>
             </div>
         </nav>
     )
