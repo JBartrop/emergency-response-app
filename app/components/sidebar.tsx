@@ -41,7 +41,7 @@ const Sidebar: React.FC = () => {
     const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
     const handleClick = (event: React.MouseEvent<HTMLLIElement>, index: number) => {
-        event.preventDefault();
+        // event.preventDefault();
         setActiveIndex(index)
     }
 
