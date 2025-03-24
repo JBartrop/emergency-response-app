@@ -15,6 +15,7 @@ export async function POST(req: NextRequest) {
             station_id,
             rank,
             phone,
+
         } = body;
 
         const hashedPassword = await bcrypt.hash(password, 12)
