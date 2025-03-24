@@ -7,7 +7,9 @@ import { generate6DigitCode } from '@/@/app/lib/actions';
 export async function POST(req: NextRequest) {
     try {
         const body = await req.json();
-        const { email, password } = body;
+        const {
+            email,
+            password } = body;
 
         if (!email || !password) {
             return NextResponse.json(
