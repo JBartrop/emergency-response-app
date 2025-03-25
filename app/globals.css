@@ -53,7 +53,7 @@ body {
 }
 
 .Auth{
-  height:100vh;
+  height:110vh;
   width:100%;
   background-image: -webkit-linear-gradient(225deg, #f7f7f7 50%, #fcc5be 50%);
   background-position:right;
@@ -62,6 +62,7 @@ body {
   justify-content:center;
   align-items: center;
   color:black;
+  background-color: #f7f7f7;
 }
 
 .Loader{

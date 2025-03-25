@@ -6,6 +6,7 @@ import Link from "next/link";
 import { HiEyeSlash } from "react-icons/hi2";
 import { FaEye, FaKey, FaUser } from "react-icons/fa6";
 import { useRouter } from "next/navigation";
+import axios from "axios";
 
 
 
@@ -40,6 +41,10 @@ const Login: React.FC = () => {
         isSubmitting(true);
         try{
             await new Promise <void> ((res) => setTimeout(res, Math.random() * 2000));
+
+            const response = await axios.post("http://localhost:3000/api/v1/auth/login-web", inputdata);
+            console.log("From backend login data:", response.data);
+
             console.log("Login Data:", inputdata);
             toast.success("login successfully!");
             localStorage.setItem("emergencyResponseProfile", JSON.stringify([inputdata]) )
